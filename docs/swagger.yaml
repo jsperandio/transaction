@@ -1,0 +1,23 @@
+info:
+  contact: {}
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Check health of api
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "406":
+          description: Not Acceptable
+          schema: {}
+      summary: Check health of api
+swagger: "2.0"
