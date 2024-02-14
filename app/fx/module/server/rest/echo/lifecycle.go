@@ -7,7 +7,7 @@ import (
 	"go.uber.org/fx"
 )
 
-const port = "8080"
+const port = "8081"
 
 func ListenAndServe(lc fx.Lifecycle, instance *echo.Echo) {
 	lc.Append(fx.Hook{

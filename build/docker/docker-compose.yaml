@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  transaction-pg:
+    image: postgres:16.2-alpine
+    container_name: transaction-pg
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pismo
+      POSTGRES_USER: pismo
+    ports:
+      - 5432:5432
+    networks:
+      - transaction_net
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  transaction-pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: transaction-pgadmin
+    restart: always
+    depends_on:
+      - transaction-pg
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@localhost.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    user: '$UID:$GID'
+    ports:
+      - 8080:80
+    networks:
+      - transaction_net
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+
+networks:
+  transaction_net:
+    driver: bridge

@@ -14,6 +14,6 @@ build-docker:
 	docker build -t transaction -f ./build/docker/dockerfile .
 
 up:
-	docker run -p 8080:8080  transaction
+	docker run -p 8081:8081  transaction
 
 run: build-docker up

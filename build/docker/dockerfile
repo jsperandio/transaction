@@ -22,6 +22,6 @@ USER appuser
 
 COPY --from=builder /app/out/transaction .
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["./transaction"]
