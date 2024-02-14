@@ -3,7 +3,9 @@ module github.com/jsperandio/transaction
 go 1.21.7
 
 require (
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/labstack/echo/v4 v4.11.4
+	github.com/lib/pq v1.10.9
 	github.com/swaggo/echo-swagger v1.4.1
 	github.com/swaggo/swag v1.16.3
 	go.uber.org/fx v1.20.1
