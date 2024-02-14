@@ -37,6 +37,7 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 //	@Success		201	{object}	response.Account
 //	@Failure		400	{object}	error
 //	@Failure		406	{object}	error
+//	@Failure		422	{object}	response.FormattedValidationError
 //	@Router			/accounts [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
 	var req request.CreateAccount
@@ -57,7 +58,7 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return e.JSONPretty(http.StatusCreated, response.NewAccountFromDomain(*acc), "	")
+	return e.JSONPretty(http.StatusCreated, response.NewAccountFromDomain(acc), "	")
 }
 
 func (ch *CreateHandler) validate(r request.CreateAccount) error {

@@ -13,6 +13,27 @@ definitions:
       document_number:
         type: string
     type: object
+  response.FormattedValidationError:
+    properties:
+      httpStatusCode:
+        type: integer
+      message:
+        type: string
+      validationErrors:
+        items:
+          $ref: '#/definitions/response.ValidationError'
+        type: array
+    type: object
+  response.ValidationError:
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+      path:
+        type: string
+      value: {}
+    type: object
 info:
   contact: {}
 paths:
@@ -41,6 +62,10 @@ paths:
         "406":
           description: Not Acceptable
           schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
       summary: Create an account
       tags:
       - Account

@@ -9,7 +9,7 @@ type Options struct {
 
 func DefaultOptions() *Options {
 	return &Options{
-		DatabaseURL:  "postgresql://pismo:pismo@transaction-pg:5432/pismo",
+		DatabaseURL:  "postgresql://pismo:pismo@localhost:5432/pismo?sslmode=disable",
 		Username:     "pismo",
 		Password:     "pismo",
 		DatabaseName: "pismo",

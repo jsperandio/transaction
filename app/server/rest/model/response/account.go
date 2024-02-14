@@ -7,7 +7,10 @@ type Account struct {
 	DocumentNumber string `json:"document_number"`
 }
 
-func NewAccountFromDomain(acc model.Account) *Account {
+func NewAccountFromDomain(acc *model.Account) *Account {
+	if acc == nil {
+		return nil
+	}
 	return &Account{
 		ID:             acc.ID,
 		DocumentNumber: acc.DocumentNumber,

@@ -54,6 +54,12 @@ const docTemplate = `{
                     "406": {
                         "description": "Not Acceptable",
                         "schema": {}
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
                     }
                 }
             }
@@ -108,6 +114,38 @@ const docTemplate = `{
                 "document_number": {
                     "type": "string"
                 }
+            }
+        },
+        "response.FormattedValidationError": {
+            "type": "object",
+            "properties": {
+                "httpStatusCode": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.ValidationError"
+                    }
+                }
+            }
+        },
+        "response.ValidationError": {
+            "type": "object",
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "value": {}
             }
         }
     }

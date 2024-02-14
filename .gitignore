@@ -17,6 +17,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 build/docker/data
+.vscode/
 
 # Go workspace file
 go.work
