@@ -1,4 +1,4 @@
-package restfx
+package rest
 
 import (
 	fxhndlr "github.com/jsperandio/transaction/app/fx/module/server/rest/handler"

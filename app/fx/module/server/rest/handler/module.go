@@ -1,6 +1,7 @@
-package handlerfx
+package handler
 
 import (
+	fxhndacc "github.com/jsperandio/transaction/app/fx/module/server/rest/handler/account"
 	"github.com/jsperandio/transaction/app/server/rest"
 	"github.com/jsperandio/transaction/app/server/rest/handler"
 	"go.uber.org/fx"
@@ -33,5 +34,6 @@ func Module() fx.Option {
 	return fx.Options(
 		HealthHandler(),
 		SwaggerHandler(),
+		fxhndacc.CreateModule(),
 	)
 }

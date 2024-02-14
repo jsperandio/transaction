@@ -1,4 +1,4 @@
-package serverfx
+package server
 
 import (
 	fxrest "github.com/jsperandio/transaction/app/fx/module/server/rest"

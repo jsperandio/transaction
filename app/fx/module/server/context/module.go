@@ -1,4 +1,4 @@
-package contextfx
+package context
 
 import (
 	"context"

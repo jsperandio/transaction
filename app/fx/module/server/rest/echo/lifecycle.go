@@ -1,4 +1,4 @@
-package echofx
+package echo
 
 import (
 	"context"
