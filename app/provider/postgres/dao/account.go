@@ -21,7 +21,7 @@ func (a *Account) Save(ctx context.Context, acc *model.Account) (*model.Account,
 	return nil, nil
 }
 
-func (a *Account) Find(ctx context.Context, ID string) (*model.Account, error) {
+func (a *Account) Get(ctx context.Context, ID int) (*model.Account, error) {
 	return nil, nil
 }
 

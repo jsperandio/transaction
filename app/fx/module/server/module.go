@@ -1,6 +1,9 @@
 package server
 
 import (
+	"log/slog"
+	"os"
+
 	fxsvc "github.com/jsperandio/transaction/app/fx/module/domain/service"
 	fxprvdr "github.com/jsperandio/transaction/app/fx/module/provider"
 	fxrest "github.com/jsperandio/transaction/app/fx/module/server/rest"
@@ -9,6 +12,9 @@ import (
 )
 
 func Start() {
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
+
 	app := fx.New(
 		fx.Options(
 			fxrestecho.Module(),

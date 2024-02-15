@@ -11,13 +11,13 @@ import (
 )
 
 type CreateHandler struct {
-	svc       service.AccountCreator
+	service   service.AccountCreator
 	validator *validator.Validate
 }
 
 func NewCreateHandler(ac service.AccountCreator, vld *validator.Validate) *CreateHandler {
 	return &CreateHandler{
-		svc:       ac,
+		service:   ac,
 		validator: vld,
 	}
 }
@@ -50,10 +50,10 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 
 	err = ch.validate(req)
 	if err != nil {
-		return ch.JSONValidateError(e, err)
+		return response.JSONValidateError(e, err)
 	}
 
-	acc, err := ch.svc.Create(ctx, req.ToDomainModel())
+	acc, err := ch.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -68,9 +68,4 @@ func (ch *CreateHandler) validate(r request.CreateAccount) error {
 	}
 
 	return nil
-}
-
-func (ch *CreateHandler) JSONValidateError(c echo.Context, err error) error {
-	fmtVldtErr := response.NewFormattedValidationError(err)
-	return c.JSONPretty(http.StatusUnprocessableEntity, fmtVldtErr, "	")
 }

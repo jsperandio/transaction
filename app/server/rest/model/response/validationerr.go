@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/labstack/echo/v4"
 )
 
 type Error struct {
@@ -82,4 +83,9 @@ func (ve *ValidationError) TagErrorDict() string {
 	}
 
 	return errMap[ve.Tag]
+}
+
+func JSONValidateError(c echo.Context, err error) error {
+	fmtVldtErr := NewFormattedValidationError(err)
+	return c.JSONPretty(http.StatusUnprocessableEntity, fmtVldtErr, "	")
 }

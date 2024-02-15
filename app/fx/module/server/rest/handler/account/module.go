@@ -17,3 +17,15 @@ func CreateModule() fx.Option {
 		),
 	)
 }
+
+func FindModule() fx.Option {
+	return fx.Options(
+		fx.Provide(
+			fx.Annotate(
+				hacc.NewFindHandler,
+				fx.As(new(rest.Handler)),
+				fx.ResultTags(`group:"handlers"`),
+			),
+		),
+	)
+}

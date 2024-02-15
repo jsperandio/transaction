@@ -16,8 +16,20 @@ func AccountCreationModule() fx.Option {
 	)
 }
 
+func AccountSearchModule() fx.Option {
+	return fx.Options(
+		fx.Provide(
+			fx.Annotate(
+				service.NewAccountSearch,
+				fx.As(new(service.AccountSearcher)),
+			),
+		),
+	)
+}
+
 func Module() fx.Option {
 	return fx.Options(
 		AccountCreationModule(),
+		AccountSearchModule(),
 	)
 }
