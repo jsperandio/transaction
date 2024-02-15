@@ -1,0 +1,8 @@
+app:
+  provider:
+    postgres:
+      client:
+        databaseurl: localhost:5432
+        username: pismo
+        password: pismo
+        databasename: pismo

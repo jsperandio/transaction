@@ -1,6 +1,8 @@
 package client
 
 import (
+	"fmt"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -11,13 +13,19 @@ type Connection struct {
 }
 
 func NewConnection(opt *Options) (*Connection, error) {
-	conn, err := sqlx.Connect("postgres", opt.DatabaseURL)
+	cs := fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable",
+		opt.Username,
+		opt.Password,
+		opt.DatabaseURL,
+		opt.DatabaseName)
+
+	con, err := sqlx.Connect("postgres", cs)
 	if err != nil {
 		return nil, err
 	}
 
 	return &Connection{
-		DB:      conn,
+		DB:      con,
 		Options: opt,
 	}, nil
 }
