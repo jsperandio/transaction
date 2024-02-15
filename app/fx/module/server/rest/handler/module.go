@@ -34,6 +34,6 @@ func Module() fx.Option {
 	return fx.Options(
 		HealthHandler(),
 		SwaggerHandler(),
-		fxhndacc.CreateModule(),
+		fxhndacc.Module(),
 	)
 }

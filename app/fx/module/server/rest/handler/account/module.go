@@ -29,3 +29,10 @@ func FindModule() fx.Option {
 		),
 	)
 }
+
+func Module() fx.Option {
+	return fx.Options(
+		CreateModule(),
+		FindModule(),
+	)
+}
