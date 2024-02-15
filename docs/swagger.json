@@ -1,8 +1,22 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a implementation of transaction server.",
+        "title": "Transactions Server",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:8081",
+    "basePath": "/",
     "paths": {
         "/accounts": {
             "post": {
@@ -37,10 +51,6 @@
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {}
-                    },
-                    "406": {
-                        "description": "Not Acceptable",
                         "schema": {}
                     },
                     "422": {
@@ -87,10 +97,6 @@
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {}
-                    },
-                    "406": {
-                        "description": "Not Acceptable",
                         "schema": {}
                     },
                     "422": {
@@ -163,10 +169,6 @@
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {}
-                    },
-                    "406": {
-                        "description": "Not Acceptable",
                         "schema": {}
                     },
                     "422": {

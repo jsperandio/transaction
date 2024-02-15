@@ -34,10 +34,10 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 //	@Produce		json
 //	@Tags			Transaction
 //	@Param			transaction	body		request.CreateTransaction	true	"values for transaction"
-//	@Success		201	{object}	response.Transaction
-//	@Failure		500	{object}    error
-//	@Failure		400	{object}	error
-//	@Failure		422	{object}	response.FormattedValidationError
+//	@Success		201			{object}	response.Transaction
+//	@Failure		500			{object}	error
+//	@Failure		400			{object}	error
+//	@Failure		422			{object}	response.FormattedValidationError
 //	@Router			/transactions [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
 	var req request.CreateTransaction

@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   request.CreateAccount:
     properties:
@@ -60,8 +61,19 @@ definitions:
         type: string
       value: {}
     type: object
+host: localhost:8081
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a implementation of transaction server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Transactions Server
+  version: "1.0"
 paths:
   /accounts:
     post:
@@ -84,9 +96,6 @@ paths:
             $ref: '#/definitions/response.Account'
         "400":
           description: Bad Request
-          schema: {}
-        "406":
-          description: Not Acceptable
           schema: {}
         "422":
           description: Unprocessable Entity
@@ -118,9 +127,6 @@ paths:
             $ref: '#/definitions/response.Account'
         "400":
           description: Bad Request
-          schema: {}
-        "406":
-          description: Not Acceptable
           schema: {}
         "422":
           description: Unprocessable Entity
@@ -169,9 +175,6 @@ paths:
             $ref: '#/definitions/response.Transaction'
         "400":
           description: Bad Request
-          schema: {}
-        "406":
-          description: Not Acceptable
           schema: {}
         "422":
           description: Unprocessable Entity

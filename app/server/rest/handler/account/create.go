@@ -34,10 +34,10 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 //	@Produce		json
 //	@Tags			Account
 //	@Param			account	body		request.CreateAccount	true	"document number for account"
-//	@Success		201	{object}	response.Account
-//	@Failure		400	{object}	error
-//	@Failure		500	{object}    error
-//	@Failure		422	{object}	response.FormattedValidationError
+//	@Success		201		{object}	response.Account
+//	@Failure		400		{object}	error
+//	@Failure		500		{object}	error
+//	@Failure		422		{object}	response.FormattedValidationError
 //	@Router			/accounts [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
 	var req request.CreateAccount
