@@ -17,12 +17,5 @@ func DefaultOptions() (*Options, error) {
 		return nil, err
 	}
 
-	// &Options{
-	// 	DatabaseURL:  "postgresql://pismo:pismo@localhost:5432/pismo?sslmode=disable",
-	// 	Username:     "pismo",
-	// 	Password:     "pismo",
-	// 	DatabaseName: "pismo",
-	// }
-
 	return opt, nil
 }
