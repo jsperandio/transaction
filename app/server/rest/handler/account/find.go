@@ -1,6 +1,7 @@
 package account
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -26,13 +27,26 @@ func (fh FindHandler) RegisterRoute(e *echo.Echo) {
 	e.GET("/accounts/:accountId", fh.Handle)
 }
 
+// Find godoc
+//
+//	@Summary		Find account
+//	@Description	Find an account by ID
+//	@Accept			json
+//	@Produce		json
+//	@Tags			Account
+//	@Param			accountId	path		int	true	"ID of desired account"
+//	@Success		200	{object}	response.Account
+//	@Failure		400	{object}	error
+//	@Failure		406	{object}	error
+//	@Failure		422	{object}	response.FormattedValidationError
+//	@Router			/accounts/{accountId} [get]
 func (fh FindHandler) Handle(e echo.Context) error {
 	var req request.FindAccount
 
 	ctx := e.Request().Context()
 	err := e.Bind(&req)
 	if err != nil {
-		return e.JSON(http.StatusBadRequest, "invalid data param")
+		return e.JSON(http.StatusBadRequest, fmt.Sprintf("invalid data param : %s", err.Error()))
 	}
 
 	err = fh.validate(req)

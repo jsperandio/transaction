@@ -69,6 +69,37 @@ paths:
       summary: Create an account
       tags:
       - Account
+  /accounts/{accountId}:
+    get:
+      consumes:
+      - application/json
+      description: Find an account by ID
+      parameters:
+      - description: ID of desired account
+        in: path
+        name: accountId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Account'
+        "400":
+          description: Bad Request
+          schema: {}
+        "406":
+          description: Not Acceptable
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
+      summary: Find account
+      tags:
+      - Account
   /health:
     get:
       consumes:
