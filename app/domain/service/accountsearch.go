@@ -8,7 +8,7 @@ import (
 )
 
 type AccountSearcher interface {
-	GetByID(ctx context.Context, id int) (*model.Account, error)
+	GetByID(ctx context.Context, id int64) (*model.Account, error)
 }
 
 type AccountSearch struct {
@@ -21,7 +21,7 @@ func NewAccountSearch(rep repository.Account) *AccountSearch {
 	}
 }
 
-func (a *AccountSearch) GetByID(ctx context.Context, id int) (*model.Account, error) {
+func (a *AccountSearch) GetByID(ctx context.Context, id int64) (*model.Account, error) {
 	fnd, err := a.repository.Get(ctx, id)
 	if err != nil {
 		return nil, err

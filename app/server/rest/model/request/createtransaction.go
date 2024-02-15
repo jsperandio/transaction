@@ -3,8 +3,8 @@ package request
 import "github.com/jsperandio/transaction/app/domain/model"
 
 type CreateTransaction struct {
-	AccountID       int     `json:"account_id" validate:"required,gt=0"`
-	OperationTypeID int     `json:"operation_type_id" validate:"required,gt=0"`
+	AccountID       int64   `json:"account_id" validate:"required,gt=0"`
+	OperationTypeID int64   `json:"operation_type_id" validate:"required,gt=0"`
 	Amount          float64 `json:"amount" validate:"required,gt=0"`
 }
 

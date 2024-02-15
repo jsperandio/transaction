@@ -1,6 +1,6 @@
 package model
 
-type OperationType int
+type OperationType int64
 
 const (
 	CompraAVista    OperationType = iota + 1
@@ -17,6 +17,6 @@ func (ot OperationType) IsValid() bool {
 	return ot > 0 && ot < 5
 }
 
-func (ot OperationType) Index() int {
-	return int(ot)
+func (ot OperationType) Index() int64 {
+	return int64(ot)
 }
