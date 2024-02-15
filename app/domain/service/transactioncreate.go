@@ -39,7 +39,7 @@ func (t *TransactionCreation) Create(ctx context.Context, txn *model.Transaction
 		return nil, err
 	}
 
-	if txn.OperationTypeID == model.Pagamento {
+	if txn.OperationTypeID != model.Pagamento {
 		txn.Amount = math.Abs(txn.Amount) * -1
 	}
 	txn.EventDate = time.Now()
