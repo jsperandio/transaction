@@ -37,7 +37,7 @@ func (tx *Transaction) Save(ctx context.Context, t *model.Transaction) (*model.T
 	return txn.ToDomain(), nil
 }
 
-func (tx *Transaction) Find(ctx context.Context, ID string) (*model.Transaction, error) {
+func (tx *Transaction) Find(ctx context.Context, ID int64) (*model.Transaction, error) {
 	txn := dbmodel.Transaction{}
 	err := tx.conn.DB.Get(&txn, `SELECT id, account_id, operation_type_id, amount, event_date  FROM transaction WHERE id = $1`, ID)
 	if err != nil {

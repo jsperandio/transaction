@@ -27,7 +27,7 @@ func (a *Account) Save(ctx context.Context, acc *model.Account) (*model.Account,
 	return dba.ToDomainModel(), nil
 }
 
-func (a *Account) Get(ctx context.Context, ID int) (*model.Account, error) {
+func (a *Account) Get(ctx context.Context, ID int64) (*model.Account, error) {
 	acc := dbmodel.Account{}
 	err := a.conn.DB.Get(&acc, "SELECT id, document_number FROM account WHERE id = $1", ID)
 	if err != nil {
