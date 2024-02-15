@@ -12,7 +12,10 @@ import (
 )
 
 func Start() {
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		AddSource: true,
+		Level:     slog.LevelDebug,
+	}))
 	slog.SetDefault(logger)
 
 	app := fx.New(

@@ -14,12 +14,16 @@ type Transaction struct {
 	EventDate       time.Time `json:"event_date"`
 }
 
-func NewTransactionFromDomain(transaction *model.Transaction) *Transaction {
+func NewTransactionFromDomain(txn *model.Transaction) *Transaction {
+	if txn == nil {
+		return nil
+	}
+
 	return &Transaction{
-		ID:              transaction.ID,
-		AccountID:       transaction.AccountID,
-		OperationTypeID: transaction.OperationTypeID.Index(),
-		Amount:          transaction.Amount,
-		EventDate:       transaction.EventDate,
+		ID:              txn.ID,
+		AccountID:       txn.AccountID,
+		OperationTypeID: txn.OperationTypeID.Index(),
+		Amount:          txn.Amount,
+		EventDate:       txn.EventDate,
 	}
 }

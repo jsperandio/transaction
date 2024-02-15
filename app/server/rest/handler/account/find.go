@@ -37,7 +37,6 @@ func (fh FindHandler) RegisterRoute(e *echo.Echo) {
 //	@Param			accountId	path		int	true	"ID of desired account"
 //	@Success		200	{object}	response.Account
 //	@Failure		400	{object}	error
-//	@Failure		406	{object}	error
 //	@Failure		422	{object}	response.FormattedValidationError
 //	@Router			/accounts/{accountId} [get]
 func (fh FindHandler) Handle(e echo.Context) error {
