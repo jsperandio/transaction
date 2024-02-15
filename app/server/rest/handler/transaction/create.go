@@ -1,4 +1,4 @@
-package account
+package transaction
 
 import (
 	"net/http"
@@ -11,37 +11,37 @@ import (
 )
 
 type CreateHandler struct {
-	service   service.AccountCreator
+	service   service.TransactionCreator
 	validator *validator.Validate
 }
 
-func NewCreateHandler(ac service.AccountCreator, vld *validator.Validate) *CreateHandler {
+func NewCreateHandler(tc service.TransactionCreator, vld *validator.Validate) *CreateHandler {
 	return &CreateHandler{
-		service:   ac,
+		service:   tc,
 		validator: vld,
 	}
 }
 
 func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
-	e.POST("/accounts", ch.Handle)
+	e.POST("/transactions", ch.Handle)
 }
 
 // Create godoc
 //
-//	@Summary		Create an account
-//	@Description	Create an account by given document number
+//	@Summary		Create an transaction
+//	@Description	Create an transaction
 //	@Accept			json
 //	@Produce		json
-//	@Tags			Account
-//	@Param			account	body		request.CreateAccount	true	"document number for account"
-//	@Success		201	{object}	response.Account
-//	@Failure		400	{object}	error
+//	@Tags			Transaction
+//	@Param			transaction	body		request.CreateTransaction	true	"values for transaction"
+//	@Success		201	{object}	response.Transaction
 //	@Failure		500	{object}    error
+//	@Failure		400	{object}	error
 //	@Failure		406	{object}	error
 //	@Failure		422	{object}	response.FormattedValidationError
-//	@Router			/accounts [post]
+//	@Router			/transactions [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
-	var req request.CreateAccount
+	var req request.CreateTransaction
 
 	ctx := e.Request().Context()
 	err := e.Bind(&req)
@@ -54,15 +54,15 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 		return response.JSONValidateError(e, err)
 	}
 
-	acc, err := ch.service.Create(ctx, req.ToDomainModel())
+	txn, err := ch.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return e.JSONPretty(http.StatusCreated, response.NewAccountFromDomain(acc), "	")
+	return e.JSONPretty(http.StatusCreated, response.NewTransactionFromDomain(txn), "	")
 }
 
-func (ch *CreateHandler) validate(r request.CreateAccount) error {
+func (ch *CreateHandler) validate(r request.CreateTransaction) error {
 	err := ch.validator.Struct(r)
 	if err != nil {
 		return err

@@ -10,9 +10,13 @@ const (
 )
 
 func (ot OperationType) String() string {
-	return [...]string{"CompraAVista", "CompraParcelada", "Saque", "Pagamento"}[ot-1]
+	return [...]string{"Compra a Vista", "Compra Parcelada", "Saque", "Pagamento"}[ot-1]
 }
 
-func (ot OperationType) EnumIndex() int {
+func (ot OperationType) IsValid() bool {
+	return ot > 0 && ot < 5
+}
+
+func (ot OperationType) Index() int {
 	return int(ot)
 }
