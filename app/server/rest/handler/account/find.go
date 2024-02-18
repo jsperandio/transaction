@@ -2,6 +2,7 @@ package account
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -42,9 +43,12 @@ func (fh FindHandler) RegisterRoute(e *echo.Echo) {
 func (fh FindHandler) Handle(e echo.Context) error {
 	var req request.FindAccount
 
+	slog.Debug("incomming account find request")
+
 	ctx := e.Request().Context()
 	err := e.Bind(&req)
 	if err != nil {
+		slog.Error("can't bind param data", "err:", err.Error())
 		return e.JSON(http.StatusBadRequest, fmt.Sprintf("invalid data param : %s", err.Error()))
 	}
 
@@ -57,12 +61,15 @@ func (fh FindHandler) Handle(e echo.Context) error {
 	if err != nil {
 		return err
 	}
+
+	slog.Debug("account found successfully", "id:", acc.ID)
 	return e.JSONPretty(http.StatusOK, response.NewAccountFromDomain(acc), "	")
 }
 
 func (fh FindHandler) validate(r request.FindAccount) error {
 	err := fh.validator.Struct(r)
 	if err != nil {
+		slog.Error("validation check error")
 		return err
 	}
 

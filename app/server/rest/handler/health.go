@@ -26,6 +26,6 @@ func (h HealthHandler) RegisterRoute(e *echo.Echo) {
 //	@Failure		400	{object}	error
 //	@Failure		406	{object}	error
 //	@Router			/health [get]
-func (HealthHandler) Handle(ectx echo.Context) (err error) {
-	return ectx.JSON(http.StatusOK, "Ok")
+func (HealthHandler) Handle(e echo.Context) (err error) {
+	return e.JSON(http.StatusOK, "Ok")
 }

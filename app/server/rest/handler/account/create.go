@@ -1,6 +1,7 @@
 package account
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -42,9 +43,12 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 func (ch CreateHandler) Handle(e echo.Context) error {
 	var req request.CreateAccount
 
+	slog.Debug("incomming account create request")
+
 	ctx := e.Request().Context()
 	err := e.Bind(&req)
 	if err != nil {
+		slog.Error("can't bind body data", "err:", err.Error())
 		return e.JSON(http.StatusBadRequest, "invalid data received")
 	}
 
@@ -58,12 +62,14 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
+	slog.Debug("account created successfully", "acc:", acc)
 	return e.JSONPretty(http.StatusCreated, response.NewAccountFromDomain(acc), "	")
 }
 
 func (ch *CreateHandler) validate(r request.CreateAccount) error {
 	err := ch.validator.Struct(r)
 	if err != nil {
+		slog.Error("validation check error")
 		return err
 	}
 
