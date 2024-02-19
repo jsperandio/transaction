@@ -6,3 +6,6 @@ app:
         username: pismo
         password: pismo
         databasename: pismo
+  server:
+    loglevel: info
+    port: 8081
