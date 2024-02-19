@@ -1,6 +1,10 @@
 package client
 
-import "github.com/jsperandio/transaction/app/config"
+import (
+	"log/slog"
+
+	"github.com/jsperandio/transaction/app/config"
+)
 
 type Options struct {
 	DatabaseURL  string `json:"databaseurl"`
@@ -14,6 +18,7 @@ func DefaultOptions() (*Options, error) {
 
 	err := config.UnmarshalWithPath("app.provider.postgres.client", opt)
 	if err != nil {
+		slog.Error("failed to unmarshal postgres client options", err)
 		return nil, err
 	}
 

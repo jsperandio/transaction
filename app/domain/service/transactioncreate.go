@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"log/slog"
 	"math"
 	"time"
 
@@ -27,15 +28,18 @@ func NewTransactionCreation(trp repository.Transaction, arp repository.Account) 
 
 func (t *TransactionCreation) Create(ctx context.Context, txn *model.Transaction) (*model.Transaction, error) {
 	if txn == nil {
+		slog.Error("transaction is nil")
 		return nil, model.ErrInvalidTransaction
 	}
 
 	if !txn.OperationTypeID.IsValid() {
+		slog.Error("operation type is invalid", "operation type", txn.OperationTypeID)
 		return nil, model.ErrInvalidOperationType
 	}
 
 	_, err := t.accountRepository.Get(ctx, txn.AccountID)
 	if err != nil {
+		slog.Error("account not found", "account_id", txn.AccountID)
 		return nil, err
 	}
 
@@ -46,8 +50,10 @@ func (t *TransactionCreation) Create(ctx context.Context, txn *model.Transaction
 
 	ret, err := t.transactionRepository.Save(ctx, txn)
 	if err != nil {
+		slog.Error("error saving transaction", "error", err)
 		return nil, err
 	}
 
+	slog.Debug("transaction created", "transaction", ret)
 	return ret, nil
 }

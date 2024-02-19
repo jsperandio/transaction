@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log/slog"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -21,6 +22,7 @@ func NewConnection(opt *Options) (*Connection, error) {
 
 	con, err := sqlx.Connect("postgres", cs)
 	if err != nil {
+		slog.Error("error connecting to database", err)
 		return nil, err
 	}
 
