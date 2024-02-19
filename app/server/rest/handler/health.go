@@ -22,6 +22,7 @@ func (h HealthHandler) RegisterRoute(e *echo.Echo) {
 //	@Description	Check health of api
 //	@Accept			json
 //	@Produce		json
+//	@Tags			App
 //	@Success		200	{object}	string
 //	@Failure		400	{object}	error
 //	@Failure		406	{object}	error

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/jsperandio/transaction/app/domain/model"
 	"github.com/labstack/echo/v4"
 )
 
@@ -85,7 +86,29 @@ func (ve *ValidationError) TagErrorDict() string {
 	return errMap[ve.Tag]
 }
 
-func JSONValidateError(c echo.Context, err error) error {
+func JSONValidateError(e echo.Context, err error) error {
 	fmtVldtErr := NewFormattedValidationError(err)
-	return c.JSONPretty(http.StatusUnprocessableEntity, fmtVldtErr, "	")
+	return e.JSONPretty(http.StatusUnprocessableEntity, fmtVldtErr, "	")
+}
+
+func JSONMappedError(e echo.Context, err error) error {
+	fmterr := Error{
+		Message: err.Error(),
+	}
+
+	switch {
+	case errors.Is(err, model.ErrAccountAlreadyExists):
+		fmterr.HTTPStatusCode = http.StatusConflict
+	case errors.Is(err, model.ErrAccountNotFound):
+		fmterr.HTTPStatusCode = http.StatusNotFound
+	case errors.Is(err, model.ErrInvalidTransaction):
+		fmterr.HTTPStatusCode = http.StatusBadRequest
+	default:
+		fmterr.HTTPStatusCode = http.StatusInternalServerError
+	}
+
+	return e.JSON(fmterr.HTTPStatusCode, &FormattedValidationError{
+		Error:            fmterr,
+		ValidationErrors: nil,
+	})
 }

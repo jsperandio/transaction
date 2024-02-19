@@ -68,7 +68,9 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "schema": {}
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
                     }
                 }
             }
@@ -106,8 +108,20 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {}
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
+                    },
                     "422": {
                         "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/response.FormattedValidationError"
                         }
@@ -123,6 +137,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "App"
                 ],
                 "summary": "Check health of api",
                 "responses": {
@@ -186,7 +203,9 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "schema": {}
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
                     }
                 }
             }

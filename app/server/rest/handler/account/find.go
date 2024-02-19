@@ -39,6 +39,8 @@ func (fh FindHandler) RegisterRoute(e *echo.Echo) {
 //	@Success		200			{object}	response.Account
 //	@Failure		400			{object}	error
 //	@Failure		422			{object}	response.FormattedValidationError
+//	@Failure		404			{object}	response.FormattedValidationError
+//	@Failure		500			{object}	response.FormattedValidationError
 //	@Router			/accounts/{accountId} [get]
 func (fh FindHandler) Handle(e echo.Context) error {
 	var req request.FindAccount
@@ -59,7 +61,7 @@ func (fh FindHandler) Handle(e echo.Context) error {
 
 	acc, err := fh.service.GetByID(ctx, req.AccountID)
 	if err != nil {
-		return err
+		return response.JSONMappedError(e, err)
 	}
 
 	slog.Debug("account found successfully", "id:", acc.ID)

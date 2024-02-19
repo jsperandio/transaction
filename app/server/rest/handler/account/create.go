@@ -37,7 +37,7 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 //	@Param			account	body		request.CreateAccount	true	"document number for account"
 //	@Success		201		{object}	response.Account
 //	@Failure		400		{object}	error
-//	@Failure		500		{object}	error
+//	@Failure		500		{object}	response.FormattedValidationError
 //	@Failure		422		{object}	response.FormattedValidationError
 //	@Router			/accounts [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
@@ -59,7 +59,7 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 
 	acc, err := ch.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
-		return e.JSON(http.StatusInternalServerError, err.Error())
+		return response.JSONMappedError(e, err)
 	}
 
 	slog.Debug("account created successfully", "acc:", acc)

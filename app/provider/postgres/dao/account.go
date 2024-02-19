@@ -2,6 +2,8 @@ package dao
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"log/slog"
 
 	"github.com/jsperandio/transaction/app/domain/model"
@@ -44,7 +46,11 @@ func (a *Account) Get(ctx context.Context, ID int64) (*model.Account, error) {
 	err := a.conn.DB.Get(&acc, "SELECT id, document_number FROM account WHERE id = $1", ID)
 	if err != nil {
 		slog.Error("error getting account", "error", err)
-		return nil, err
+		if !errors.Is(err, sql.ErrNoRows) {
+			return nil, err
+		}
+		slog.Debug("account not found", "id", ID)
+		return nil, nil
 	}
 
 	dm := acc.ToDomainModel()
@@ -61,7 +67,11 @@ func (a *Account) FindByDocumentNumber(ctx context.Context, documentNumber strin
 	err := a.conn.DB.Get(&acc, "SELECT id, document_number FROM account WHERE document_number = $1", documentNumber)
 	if err != nil {
 		slog.Error("error getting account by document number", "error", err)
-		return nil, err
+		if !errors.Is(err, sql.ErrNoRows) {
+			return nil, err
+		}
+		slog.Debug("account not found by document number", "document_number", documentNumber)
+		return nil, nil
 	}
 
 	dm := acc.ToDomainModel()

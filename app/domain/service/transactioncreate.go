@@ -33,14 +33,19 @@ func (t *TransactionCreation) Create(ctx context.Context, txn *model.Transaction
 	}
 
 	if !txn.OperationTypeID.IsValid() {
-		slog.Error("operation type is invalid", "operation type", txn.OperationTypeID)
-		return nil, model.ErrInvalidOperationType
+		slog.Error(model.ErrInvalidOperationType.Error(), "operation type", txn.OperationTypeID)
+		return nil, model.ErrInvalidTransaction
 	}
 
-	_, err := t.accountRepository.Get(ctx, txn.AccountID)
+	acc, err := t.accountRepository.Get(ctx, txn.AccountID)
 	if err != nil {
-		slog.Error("account not found", "account_id", txn.AccountID)
+		slog.Error("account get error", "account_id", txn.AccountID)
 		return nil, err
+	}
+
+	if acc == nil {
+		slog.Error(model.ErrAccountNotFound.Error(), "account_id", txn.AccountID)
+		return nil, model.ErrInvalidTransaction
 	}
 
 	if txn.OperationTypeID != model.Pagamento {

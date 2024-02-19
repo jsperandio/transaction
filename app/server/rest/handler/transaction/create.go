@@ -36,9 +36,9 @@ func (ch CreateHandler) RegisterRoute(e *echo.Echo) {
 //	@Tags			Transaction
 //	@Param			transaction	body		request.CreateTransaction	true	"values for transaction"
 //	@Success		201			{object}	response.Transaction
-//	@Failure		500			{object}	error
 //	@Failure		400			{object}	error
 //	@Failure		422			{object}	response.FormattedValidationError
+//	@Failure		500			{object}	response.FormattedValidationError
 //	@Router			/transactions [post]
 func (ch CreateHandler) Handle(e echo.Context) error {
 	var req request.CreateTransaction
@@ -57,7 +57,7 @@ func (ch CreateHandler) Handle(e echo.Context) error {
 
 	txn, err := ch.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
-		return e.JSON(http.StatusInternalServerError, err.Error())
+		return response.JSONMappedError(e, err)
 	}
 
 	slog.Info("transaction created successfully", "id:", txn.ID)

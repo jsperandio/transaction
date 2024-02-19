@@ -61,7 +61,9 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "schema": {}
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
                     }
                 }
             }
@@ -99,8 +101,20 @@
                         "description": "Bad Request",
                         "schema": {}
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
+                    },
                     "422": {
                         "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/response.FormattedValidationError"
                         }
@@ -116,6 +130,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "App"
                 ],
                 "summary": "Check health of api",
                 "responses": {
@@ -179,7 +196,9 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "schema": {}
+                        "schema": {
+                            "$ref": "#/definitions/response.FormattedValidationError"
+                        }
                     }
                 }
             }

@@ -29,6 +29,11 @@ func (a *AccountSearch) GetByID(ctx context.Context, id int64) (*model.Account, 
 		return nil, err
 	}
 
+	if fnd == nil {
+		slog.Debug("account not found", "id", id)
+		return nil, model.ErrAccountNotFound
+	}
+
 	slog.Debug("account found", "account", fnd)
 	return fnd, nil
 }

@@ -103,7 +103,8 @@ paths:
             $ref: '#/definitions/response.FormattedValidationError'
         "500":
           description: Internal Server Error
-          schema: {}
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
       summary: Create an account
       tags:
       - Account
@@ -128,8 +129,16 @@ paths:
         "400":
           description: Bad Request
           schema: {}
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
         "422":
           description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/response.FormattedValidationError'
       summary: Find account
@@ -154,6 +163,8 @@ paths:
           description: Not Acceptable
           schema: {}
       summary: Check health of api
+      tags:
+      - App
   /transactions:
     post:
       consumes:
@@ -182,7 +193,8 @@ paths:
             $ref: '#/definitions/response.FormattedValidationError'
         "500":
           description: Internal Server Error
-          schema: {}
+          schema:
+            $ref: '#/definitions/response.FormattedValidationError'
       summary: Create an transaction
       tags:
       - Transaction
