@@ -11,6 +11,23 @@ API REST para gerencimento de conta e transação.
 * [Docker](https://www.docker.com/)
 
 
+### Uso
+
+#### Pré-requisitos
+
+* Ambiente com Docker e Docker Compose.
+
+#### Usando Aplicação
+Clone o repo, navegue para a pasta.
+
+```bash
+$ make dc-build
+```
+```bash
+$ make dc-up
+```
+
+
 #### Endpoints
 
 
