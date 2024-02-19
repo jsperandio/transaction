@@ -3,6 +3,7 @@ module github.com/jsperandio/transaction
 go 1.21.7
 
 require (
+	bou.ke/monkey v1.0.2
 	github.com/go-playground/validator/v10 v10.18.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/knadh/koanf v1.5.0
