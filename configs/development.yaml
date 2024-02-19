@@ -1,0 +1,11 @@
+app:
+  provider:
+    postgres:
+      client:
+        databaseurl: localhost:5432
+        username: pismo
+        password: pismo
+        databasename: pismo
+  server:
+    loglevel: debug
+    port: 8081

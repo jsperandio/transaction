@@ -1,6 +1,7 @@
 package client
 
 import (
+	"database/sql"
 	"fmt"
 	"log/slog"
 
@@ -20,14 +21,17 @@ func NewConnection(opt *Options) (*Connection, error) {
 		opt.DatabaseURL,
 		opt.DatabaseName)
 
-	con, err := sqlx.Connect("postgres", cs)
+	db, err := sql.Open("postgres", cs)
 	if err != nil {
-		slog.Error("error connecting to database", err)
+		slog.Error("error on connect")
 		return nil, err
 	}
+	db.Ping()
+
+	db2 := sqlx.NewDb(db, "postgres")
 
 	return &Connection{
-		DB:      con,
+		DB:      db2,
 		Options: opt,
 	}, nil
 }

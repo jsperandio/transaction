@@ -20,6 +20,7 @@ WORKDIR /application
 RUN adduser -S -D -H -h /application appuser
 USER appuser
 
+COPY --from=builder /app/configs/global.yaml .
 COPY --from=builder /app/out/transaction .
 
 EXPOSE 8081

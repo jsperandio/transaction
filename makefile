@@ -10,14 +10,14 @@ lint:
 test:
 	go test -race ./...
 
-build-docker:
+docker-build:
 	docker build -t transaction -f ./build/docker/dockerfile .
 
+run:
+	docker run -e CONF=./global.yaml --name transaction -p 8081:8081 -d transaction
 
-docker-compose-up:
-	docker-compose -f ./build/docker/docker-compose.yaml up -d
+db: 
+	docker run --rm -P --name transaction-pg -p 5432:5432 -e POSTGRES_PASSWORD=pismo -e POSTGRES_USER=pismo -d postgres:16.2-alpine
 
-up:
-	docker run -p 8081:8081  transaction
-
-run: build-docker up
+up: db
+	docker run -e CONF=./global.yaml --name transaction -p 8081:8081 -d transaction
