@@ -7,5 +7,5 @@ app:
         password: pismo
         databasename: pismo
   server:
-    loglevel: debug
+    loglevel: info
     port: 8081
