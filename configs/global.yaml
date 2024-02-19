@@ -2,10 +2,10 @@ app:
   provider:
     postgres:
       client:
-        databaseurl: localhost:5432
+        databaseurl: 172.17.0.1:5432
         username: pismo
         password: pismo
         databasename: pismo
   server:
-    loglevel: info
+    loglevel: debug
     port: 8081

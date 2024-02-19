@@ -23,15 +23,17 @@ func NewConnection(opt *Options) (*Connection, error) {
 
 	db, err := sql.Open("postgres", cs)
 	if err != nil {
-		slog.Error("error on connect")
+		slog.Error("error on connect", "cs", cs)
 		return nil, err
 	}
-	db.Ping()
-
-	db2 := sqlx.NewDb(db, "postgres")
+	err = db.Ping()
+	if err != nil {
+		slog.Error("error on ping", "cs", cs)
+		return nil, err
+	}
 
 	return &Connection{
-		DB:      db2,
+		DB:      sqlx.NewDb(db, "postgres"),
 		Options: opt,
 	}, nil
 }
