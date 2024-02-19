@@ -1,0 +1,10 @@
+package rest
+
+import (
+	"github.com/labstack/echo/v4"
+)
+
+type Handler interface {
+	Handle(c echo.Context) error
+	RegisterRoute(instance *echo.Echo)
+}

@@ -1,0 +1,28 @@
+FROM golang:1.21.7-alpine as builder
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . .
+
+RUN GOOS=linux go build -o ./out/transaction ./cmd/transaction/main.go
+
+### Running image
+FROM alpine:3.16
+
+WORKDIR /application
+
+RUN adduser -S -D -H -h /application appuser
+USER appuser
+
+COPY --from=builder /app/configs/global.yaml .
+COPY --from=builder /app/out/transaction .
+
+EXPOSE 8081
+
+CMD ["./transaction"]
