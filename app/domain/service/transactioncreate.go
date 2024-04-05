@@ -53,9 +53,21 @@ func (t *TransactionCreation) Create(ctx context.Context, txn *model.Transaction
 	}
 	txn.EventDate = time.Now()
 
+	acc.AvaliableCreditLimit += txn.Amount
+	if acc.AvaliableCreditLimit < 0 {
+		slog.Error("transaction value except account avaliable credit")
+		return nil, model.ErrNonAvaliableLimitForAccountTransaction
+	}
+
 	ret, err := t.transactionRepository.Save(ctx, txn)
 	if err != nil {
 		slog.Error("error saving transaction", "error", err)
+		return nil, err
+	}
+
+	err = t.accountRepository.Update(ctx, acc)
+	if err != nil {
+		slog.Error("erro on save account new avaliable limit")
 		return nil, err
 	}
 

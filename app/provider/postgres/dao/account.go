@@ -26,7 +26,7 @@ func (a *Account) Save(ctx context.Context, acc *model.Account) (*model.Account,
 
 	slog.Debug("saving account", "account", dba)
 
-	err := a.conn.DB.Get(dba, "INSERT INTO account (document_number) VALUES ($1) RETURNING id", dba.DocumentNumber)
+	err := a.conn.DB.Get(dba, "INSERT INTO account (document_number, avaliable_credit_limit) VALUES ($1,$2) RETURNING id", dba.DocumentNumber, dba.AvaliableCreditLimit)
 	if err != nil {
 		slog.Error("error saving account", "error", err)
 		return nil, err
@@ -38,12 +38,37 @@ func (a *Account) Save(ctx context.Context, acc *model.Account) (*model.Account,
 	return dm, nil
 }
 
+func (a *Account) Update(ctx context.Context, acc *model.Account) error {
+	dba := dbmodel.NewAccountFromDomain(acc)
+
+	slog.Debug("udapte account", "account", dba)
+
+	res, err := a.conn.DB.NamedExec("UPDATE account SET avaliable_credit_limit = :avaliable_credit_limit", dba)
+	if err != nil {
+		slog.Error("error update account", "error", err)
+		return err
+	}
+
+	cnt, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if cnt < 1 {
+		return errors.New("can't update account")
+	}
+
+	slog.Debug("account saved")
+
+	return nil
+}
+
 func (a *Account) Get(ctx context.Context, ID int64) (*model.Account, error) {
 	acc := dbmodel.Account{}
 
 	slog.Debug("getting account", "id", ID)
 
-	err := a.conn.DB.Get(&acc, "SELECT id, document_number FROM account WHERE id = $1", ID)
+	err := a.conn.DB.Get(&acc, "SELECT id, document_number,avaliable_credit_limit  FROM account WHERE id = $1", ID)
 	if err != nil {
 		slog.Error("error getting account", "error", err)
 		if !errors.Is(err, sql.ErrNoRows) {
@@ -64,7 +89,7 @@ func (a *Account) FindByDocumentNumber(ctx context.Context, documentNumber strin
 
 	slog.Debug("getting account by document number", "document_number", documentNumber)
 
-	err := a.conn.DB.Get(&acc, "SELECT id, document_number FROM account WHERE document_number = $1", documentNumber)
+	err := a.conn.DB.Get(&acc, "SELECT id, document_number,avaliable_credit_limit FROM account WHERE document_number = $1", documentNumber)
 	if err != nil {
 		slog.Error("error getting account by document number", "error", err)
 		if !errors.Is(err, sql.ErrNoRows) {

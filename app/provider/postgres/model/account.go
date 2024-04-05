@@ -3,8 +3,9 @@ package model
 import "github.com/jsperandio/transaction/app/domain/model"
 
 type Account struct {
-	ID             int64  `db:"id"`
-	DocumentNumber string `db:"document_number"`
+	ID                   int64   `db:"id"`
+	DocumentNumber       string  `db:"document_number"`
+	AvaliableCreditLimit float64 `db:"avaliable_credit_limit"`
 }
 
 func NewAccountFromDomain(acc *model.Account) *Account {
@@ -13,8 +14,9 @@ func NewAccountFromDomain(acc *model.Account) *Account {
 	}
 
 	return &Account{
-		ID:             acc.ID,
-		DocumentNumber: acc.DocumentNumber,
+		ID:                   acc.ID,
+		DocumentNumber:       acc.DocumentNumber,
+		AvaliableCreditLimit: acc.AvaliableCreditLimit,
 	}
 }
 
@@ -24,7 +26,8 @@ func (a *Account) ToDomainModel() *model.Account {
 	}
 
 	return &model.Account{
-		ID:             a.ID,
-		DocumentNumber: a.DocumentNumber,
+		ID:                   a.ID,
+		DocumentNumber:       a.DocumentNumber,
+		AvaliableCreditLimit: a.AvaliableCreditLimit,
 	}
 }

@@ -11,4 +11,6 @@ var (
 	ErrInvalidTransaction = errors.New("invalid transaction")
 	// ErrInvalidOperationType is returned when an invalid operation type is provided.
 	ErrInvalidOperationType = errors.New("invalid operation type")
+	// ErrNonAvaliableLimitForAccountTransaction return on limit is overpass
+	ErrNonAvaliableLimitForAccountTransaction = errors.New("account limit is overrpass")
 )

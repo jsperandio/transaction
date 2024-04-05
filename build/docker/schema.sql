@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS public.account
 (
     id serial NOT NULL,
     document_number character varying COLLATE pg_catalog."default" NOT NULL,
+    avaliable_credit_limit numeric(15,2) NOT NULL,
     CONSTRAINT pk_account PRIMARY KEY (id),
     CONSTRAINT account_document_number_uniquekey UNIQUE (document_number)
 );

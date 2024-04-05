@@ -8,6 +8,7 @@ import (
 
 type Account interface {
 	Save(ctx context.Context, acc *model.Account) (*model.Account, error)
+	Update(ctx context.Context, acc *model.Account) error
 	Get(ctx context.Context, ID int64) (*model.Account, error)
 	FindByDocumentNumber(ctx context.Context, documentNumber string) (*model.Account, error)
 }

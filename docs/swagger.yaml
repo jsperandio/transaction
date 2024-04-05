@@ -2,9 +2,12 @@ basePath: /
 definitions:
   request.CreateAccount:
     properties:
+      avaliable_credit_limit:
+        type: number
       document_number:
         type: string
     required:
+    - avaliable_credit_limit
     - document_number
     type: object
   request.CreateTransaction:

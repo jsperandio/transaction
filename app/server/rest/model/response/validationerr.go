@@ -103,6 +103,8 @@ func JSONMappedError(e echo.Context, err error) error {
 		fmterr.HTTPStatusCode = http.StatusNotFound
 	case errors.Is(err, model.ErrInvalidTransaction):
 		fmterr.HTTPStatusCode = http.StatusBadRequest
+	case errors.Is(err, model.ErrNonAvaliableLimitForAccountTransaction):
+		fmterr.HTTPStatusCode = http.StatusBadRequest
 	default:
 		fmterr.HTTPStatusCode = http.StatusInternalServerError
 	}

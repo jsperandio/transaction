@@ -215,9 +215,13 @@ const docTemplate = `{
         "request.CreateAccount": {
             "type": "object",
             "required": [
+                "avaliable_credit_limit",
                 "document_number"
             ],
             "properties": {
+                "avaliable_credit_limit": {
+                    "type": "number"
+                },
                 "document_number": {
                     "type": "string"
                 }
